@@ -1,27 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InicioController;
+use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\ContactoController;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [InicioController::class, 'index'])->name('inicio');
+Route::get('/personas', [PersonaController::class, 'index'])->name('personas');
+Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
 
-Route::get('/servicios/{opcional?}', function ($opcional = null) {
-    return view('servicios', ['opcional' => $opcional]);
-})->where('opcional', '[A-Za-z]+')->name('servicios');
-
-Route::get('/proyectos/{opcional?}', function ($opcional = null) {
-    return view('proyectos', ['opcional' => $opcional]);
-})->where('opcional', '[A-Za-z]+')->name('proyectos');
-
-Route::get('/clientes/{opcional?}', function ($opcional = null) {
-    return view('clientes', ['opcional' => $opcional]);
-})->where('opcional', '[A-Za-z]+')->name('clientes');
-
-Route::get('/blog/{opcional?}', function ($opcional = null) {
-    return view('blog', ['opcional' => $opcional]);
-})->where('opcional', '[0-9]+')->name('blog');
-
-Route::get('/contacto', function () {
-    return view('contacto');
-})->name('contacto');
