@@ -36,13 +36,25 @@
         .container {
             padding: 20px;
         }
+        .btn-primary {
+            background-color: orange;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            background-color: darkorange;
+        }
     </style>
 </head>
 <body>
     <nav>
         <ul>
             <li><a href="{{ route('inicio') }}" class="{{ request()->is('/') ? 'active' : '' }}">Inicio</a></li>
-            <li><a href="{{ route('personas') }}" class="{{ request()->is('personas') ? 'active' : '' }}">Personas</a></li>
+            <li><a href="{{ route('personas.index') }}" class="{{ request()->is('personas*') ? 'active' : '' }}">Personas</a></li>
             <li><a href="{{ route('contacto') }}" class="{{ request()->is('contacto') ? 'active' : '' }}">Contacto</a></li>
         </ul>
     </nav>

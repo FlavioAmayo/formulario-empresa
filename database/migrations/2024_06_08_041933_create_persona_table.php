@@ -23,7 +23,7 @@ class CreatePersonaTable extends Migration
             $table->decimal('nPerSueldo', 6, 2)->nullable();
             $table->string('cPerRnd', 50)->nullable();
             $table->char('nPerEstado', 1)->default('1');
-            $table->rememberToken();
+            $table->string('remember_token', 100)->nullable();
             $table->timestamps();
         });
     }
