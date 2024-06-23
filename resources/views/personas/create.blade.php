@@ -8,10 +8,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('personas.store') }}">
-                    @csrf
-                    <!-- Tu formulario aquí -->
-                </form>
+                @include('partials.form', [
+                    'action' => route('personas.store'),
+                    'method' => 'POST',
+                    'persona' => null,
+                    'buttonText' => 'Crear'
+                ])
             </div>
         </div>
     </div>

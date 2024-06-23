@@ -73,6 +73,7 @@
                 <th>Sueldo</th>
                 <th>Estado</th>
                 <th>Sexo</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -86,6 +87,9 @@
                 <td>{{ $persona->sueldo }}</td>
                 <td>{{ $persona->estado }}</td>
                 <td>{{ $persona->sexo }}</td>
+                <td>
+                    <a href="{{ route('personas.edit', $persona->id) }}" class="btn btn-warning">Editar</a>
+                </td>
             </tr>
             @endforeach
         </tbody>

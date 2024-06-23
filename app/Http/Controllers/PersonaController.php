@@ -32,11 +32,36 @@ class PersonaController extends Controller
         ], [
             'apellido.required' => 'El campo apellido es obligatorio.',
             'nombre.required' => 'El campo nombre es obligatorio.',
-            // Añade más mensajes personalizados según necesites
         ]);
 
         Persona::create($validated);
 
         return redirect()->route('personas.index')->with('success', 'Persona agregada exitosamente.');
+    }
+
+    public function edit(Persona $persona)
+    {
+        return view('personas.edit', compact('persona'));
+    }
+
+    public function update(Request $request, Persona $persona)
+    {
+        $validated = $request->validate([
+            'apellido' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'fecha_nacimiento' => 'required|date',
+            'edad' => 'required|integer',
+            'sueldo' => 'required|numeric',
+            'estado' => 'required|string|max:255',
+            'sexo' => 'required|string|max:255',
+        ], [
+            'apellido.required' => 'El campo apellido es obligatorio.',
+            'nombre.required' => 'El campo nombre es obligatorio.',
+        ]);
+
+        $persona->update($validated);
+
+        return redirect()->route('personas.index')->with('success', 'Persona actualizada exitosamente.');
     }
 }
