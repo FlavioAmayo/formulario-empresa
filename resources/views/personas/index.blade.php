@@ -6,7 +6,7 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createPersonaModal">
         Agregar Persona
     </button>
-
+    
     <!-- Modal -->
     <div class="modal fade" id="createPersonaModal" tabindex="-1" role="dialog" aria-labelledby="createPersonaModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -89,6 +89,11 @@
                 <td>{{ $persona->sexo }}</td>
                 <td>
                     <a href="{{ route('personas.edit', $persona->id) }}" class="btn btn-warning">Editar</a>
+                    <form action="{{ route('personas.destroy', $persona->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta persona?')">Eliminar</button>
+                    </form>
                 </td>
             </tr>
             @endforeach
