@@ -1,8 +1,8 @@
-@extends('layouts.layout')
-
-@section('title', 'Contacto')
+@extends('layouts.app')
 
 @section('content')
-    <h1>Contáctanos</h1>
-    <p>Formulario de contacto.</p>
+<div class="container">
+    <h1>Contacto</h1>
+    <!-- Contenido de la vista de contacto -->
+</div>
 @endsection

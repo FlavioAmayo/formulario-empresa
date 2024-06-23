@@ -3,81 +3,112 @@
 @section('title', 'Personas')
 
 @section('content')
-    <h1>Lista de Personas</h1>
-    <!-- Botón para abrir el modal -->
-    <button onclick="document.getElementById('modalForm').style.display='block'" class="btn btn-primary" style="background-color: orange; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-bottom: 10px;">Agregar Persona</button>
-    
-    <!-- Modal para el formulario -->
-    <div id="modalForm" style="display:none; position:fixed; z-index:1; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgb(0,0,0); background-color:rgba(0,0,0,0.4);">
-        <div style="background-color:#fefefe; margin:15% auto; padding:20px; border:1px solid #888; width:80%;">
-            <span onclick="document.getElementById('modalForm').style.display='none'" style="color:#aaa; float:right; font-size:28px; font-weight:bold;">&times;</span>
-            <h2>Agregar Persona</h2>
-            <form method="POST" action="{{ route('personas.store') }}">
-                @csrf
-                <label for="cPerApellido">Apellido:</label>
-                <input type="text" id="cPerApellido" name="cPerApellido" required>
-                <br>
-                <label for="cPerNombre">Nombre:</label>
-                <input type="text" id="cPerNombre" name="cPerNombre" required>
-                <br>
-                <label for="cPerDireccion">Dirección:</label>
-                <input type="text" id="cPerDireccion" name="cPerDireccion" required>
-                <br>
-                <label for="dPerFecNac">Fecha de Nacimiento:</label>
-                <input type="date" id="dPerFecNac" name="dPerFecNac" required>
-                <br>
-                <label for="nPerEdad">Edad:</label>
-                <input type="number" id="nPerEdad" name="nPerEdad" required>
-                <br>
-                <label for="nPerSueldo">Sueldo:</label>
-                <input type="number" id="nPerSueldo" name="nPerSueldo" required>
-                <br>
-                <label for="nPerEstado">Estado:</label>
-                <select id="nPerEstado" name="nPerEstado" required>
-                    <option value="1">Activo</option>
-                    <option value="0">Inactivo</option>
-                </select>
-                <br>
-                <label for="cPerSexo">Sexo:</label>
-                <select id="cPerSexo" name="cPerSexo" required>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                </select>
-                <br><br>
-                <button type="submit" class="btn btn-primary" style="background-color: orange; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Crear</button>
-            </form>
-        </div>
-    </div>
+<h1>Lista de Personas</h1>
 
-    <!-- Tabla para mostrar los registros de personas -->
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Apellido</th>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th>Fecha de Nacimiento</th>
-                <th>Edad</th>
-                <th>Sueldo</th>
-                <th>Rnd</th>
-                <th>Estado</th>
-                <th>Sexo</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($personas as $persona)
-            <tr>
-                <td>{{ $persona->cPerApellido }}</td>
-                <td>{{ $persona->cPerNombre }}</td>
-                <td>{{ $persona->cPerDireccion }}</td>
-                <td>{{ $persona->dPerFecNac }}</td>
-                <td>{{ $persona->nPerEdad }}</td>
-                <td>{{ $persona->nPerSueldo }}</td>
-                <td>{{ $persona->cPerRnd }}</td>
-                <td>{{ $persona->nPerEstado }}</td>
-                <td>{{ $persona->cPerSexo }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+<!-- Botón para abrir el modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createPersonaModal">
+  Agregar Persona
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="createPersonaModal" tabindex="-1" role="dialog" aria-labelledby="createPersonaModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createPersonaModalLabel">Crear Persona</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('personas.store') }}" method="POST">
+          @csrf
+          <div class="form-group">
+            <label for="cPerApellido">Apellido:</label>
+            <input type="text" class="form-control" name="cPerApellido" id="cPerApellido" value="{{ old('cPerApellido') }}">
+            {{ $errors->first('cPerApellido') }}
+          </div>
+          <div class="form-group">
+            <label for="cPerNombre">Nombre:</label>
+            <input type="text" class="form-control" name="cPerNombre" id="cPerNombre" value="{{ old('cPerNombre') }}">
+            {{ $errors->first('cPerNombre') }}
+          </div>
+          <div class="form-group">
+            <label for="cPerDireccion">Dirección:</label>
+            <input type="text" class="form-control" name="cPerDireccion" id="cPerDireccion" value="{{ old('cPerDireccion') }}">
+            {{ $errors->first('cPerDireccion') }}
+          </div>
+          <div class="form-group">
+            <label for="dPerFecNac">Fecha de Nacimiento:</label>
+            <input type="date" class="form-control" name="dPerFecNac" id="dPerFecNac" value="{{ old('dPerFecNac') }}">
+            {{ $errors->first('dPerFecNac') }}
+          </div>
+          <div class="form-group">
+            <label for="nPerEdad">Edad:</label>
+            <input type="number" class="form-control" name="nPerEdad" id="nPerEdad" value="{{ old('nPerEdad') }}">
+            {{ $errors->first('nPerEdad') }}
+          </div>
+          <div class="form-group">
+            <label for="nPerSueldo">Sueldo:</label>
+            <input type="number" class="form-control" name="nPerSueldo" id="nPerSueldo" value="{{ old('nPerSueldo') }}">
+            {{ $errors->first('nPerSueldo') }}
+          </div>
+          <div class="form-group">
+            <label for="cPerRnd">RND:</label>
+            <input type="text" class="form-control" name="cPerRnd" id="cPerRnd" value="{{ old('cPerRnd') }}">
+            {{ $errors->first('cPerRnd') }}
+          </div>
+          <div class="form-group">
+            <label for="nPerEstado">Estado:</label>
+            <select name="nPerEstado" id="nPerEstado" class="form-control">
+              <option value="1" {{ old('nPerEstado') == 1 ? 'selected' : '' }}>Activo</option>
+              <option value="0" {{ old('nPerEstado') == 0 ? 'selected' : '' }}>Inactivo</option>
+            </select>
+            {{ $errors->first('nPerEstado') }}
+          </div>
+          <div class="form-group">
+            <label for="cPerSexo">Sexo:</label>
+            <select name="cPerSexo" id="cPerSexo" class="form-control">
+              <option value="M" {{ old('cPerSexo') == 'M' ? 'selected' : '' }}>Masculino</option>
+              <option value="F" {{ old('cPerSexo') == 'F' ? 'selected' : '' }}>Femenino</option>
+            </select>
+            {{ $errors->first('cPerSexo') }}
+          </div>
+          <button type="submit" class="btn btn-primary">Añadir</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Apellido</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Edad</th>
+            <th>Sueldo</th>
+            <th>Rnd</th>
+            <th>Estado</th>
+            <th>Sexo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($personas as $persona)
+        <tr>
+            <td>{{ $persona->cPerApellido }}</td>
+            <td>{{ $persona->cPerNombre }}</td>
+            <td>{{ $persona->cPerDireccion }}</td>
+            <td>{{ $persona->dPerFecNac }}</td>
+            <td>{{ $persona->nPerEdad }}</td>
+            <td>{{ $persona->nPerSueldo }}</td>
+            <td>{{ $persona->cPerRnd }}</td>
+            <td>{{ $persona->nPerEstado }}</td>
+            <td>{{ $persona->cPerSexo }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 @endsection

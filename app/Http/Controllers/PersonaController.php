@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use App\Models\Persona;
 
 class PersonaController extends Controller
 {
     public function index()
     {
-        $personas = DB::table('persona')->get();
-        return view('personas.index', ['personas' => $personas]);
+        $personas = Persona::all();
+        return view('personas.index', compact('personas'));
     }
 
     public function create()
@@ -20,19 +20,23 @@ class PersonaController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'cPerApellido' => 'required|string|max:255',
-            'cPerNombre' => 'required|string|max:255',
-            'cPerDireccion' => 'required|string|max:255',
-            'dPerFecNac' => 'required|date',
-            'nPerEdad' => 'required|integer',
-            'nPerSueldo' => 'required|numeric',
-            'nPerEstado' => 'required|boolean',
-            'cPerSexo' => 'required|string|max:255',
+        $validated = $request->validate([
+            'apellido' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'fecha_nacimiento' => 'required|date',
+            'edad' => 'required|integer',
+            'sueldo' => 'required|numeric',
+            'estado' => 'required|string|max:255',
+            'sexo' => 'required|string|max:255',
+        ], [
+            'apellido.required' => 'El campo apellido es obligatorio.',
+            'nombre.required' => 'El campo nombre es obligatorio.',
+            // Añade más mensajes personalizados según necesites
         ]);
 
-        DB::table('persona')->insert($validatedData);
+        Persona::create($validated);
 
-        return redirect()->route('personas.index');
+        return redirect()->route('personas.index')->with('success', 'Persona agregada exitosamente.');
     }
 }

@@ -1,8 +1,8 @@
-@extends('layouts.layout')
-
-@section('title', 'Inicio')
+@extends('layouts.app')
 
 @section('content')
-    <h1>Bienvenido a la página de inicio</h1>
-    <p>Esta es la página principal del sitio.</p>
+<div class="container">
+    <h1>Inicio</h1>
+    <!-- Contenido de la vista de inicio -->
+</div>
 @endsection
