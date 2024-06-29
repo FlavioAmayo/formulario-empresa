@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Contacto</h1>
+
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -21,7 +22,7 @@
         </div>
         <div class="form-group">
             <label for="mensaje">Mensaje</label>
-            <textarea class="form-control" id="mensaje" name="mensaje" rows="3" required></textarea>
+            <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
